@@ -1,0 +1,10 @@
+{
+    "name": "fluid-nav",
+    "title": "Fluid Nav",
+    "description": "Browse FeatherBB without page refresh thanks to push state AJAX.",
+    "version": "0.1.0",
+    "keywords": ["javascript", "fluid", "navigation", "ajax"],
+    "author": {
+        "name": "beaver"
+    }
+}
