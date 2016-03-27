@@ -179,7 +179,9 @@
             if(document.location.href === options.url) return false;
             // Idem if last char of node is an empty hash (probably a "select all" link)
             if(options.url[options.url.length-1] === '#') return false;
-            // handle the load.
+            // Handle "isactive" states if we click a navigation list item
+            if (node.parentNode.parentNode.parentNode.id === 'brdmenu') { options.activeNavItem = node.parentNode; }
+            // Handle the load.
             internal.handle(options);
         });
     };
@@ -388,6 +390,11 @@
             if (options.hash) {
                 location.hash = options.hash;
             }
+            // Add an "isactive" class to clicked link's parent (for main nav in topbar)
+            for (navItem of document.getElementById('brdmenu').querySelectorAll('li')) navItem.classList.remove('isactive');
+            if (options.activeNavItem && options.activeNavItem.id != 'navlogout') {
+                options.activeNavItem.classList.add('isactive');
+            }
         });
     };
 
@@ -448,6 +455,7 @@
          * - returnToTop: Scroll user back to top of page, when new page is opened by PJAX
          * - hash: If not null (default), scroll to URL hash
          * - parseJS: Disabled by default, when enabled PJAX will automatically run returned JavaScript
+         * - activeNavItem: Add an "isactive" class to clicked link's item for main nav in topbar
          */
         var defaults = {
             "history": true,
@@ -455,8 +463,9 @@
             "smartLoad" : true,
             "autoAnalytics": true,
             "returnToTop": true,
+            "hash": null,
             "parseJS": false,
-            "hash": null
+            "activeNavItem": false
         };
 
         // Ensure a URL and container have been provided.
