@@ -340,14 +340,17 @@
         internal.triggerEvent(options.container, 'beforeSend', options);
 
         // Do the request
-        internal.request(options.url, function(html) {
+        internal.request(options.url, function(xmlhttpResponse) {
 
             // Fail if unable to load HTML via AJAX
-            if(html === false){
+            if(xmlhttpResponse === false){
                 internal.triggerEvent(options.container,'complete', options);
                 internal.triggerEvent(options.container,'error', options);
                 return;
             }
+
+            var html = xmlhttpResponse.responseText;
+            options.url = xmlhttpResponse.responseURL.replace(/(?:\?|&)\_pjax/, '');
 
             // Parse page & update DOM
             options = internal.updateContent(html, options);
@@ -419,7 +422,7 @@
         xmlhttp.onreadystatechange = function() {
             if ((xmlhttp.readyState === 4) && (xmlhttp.status === 200)) {
                 // Success, Return HTML
-                callback(xmlhttp.responseText);
+                callback(xmlhttp);
             }else if((xmlhttp.readyState === 4) && (xmlhttp.status === 404 || xmlhttp.status === 500)){
                 // error (return false)
                 callback(false);
