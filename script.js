@@ -3,7 +3,7 @@
 
     // PJAX links!
     pjax.connect({
-        'container': bodyId,
+        'container': 'feather-body',
         'parseJS': true,
         'ready': function(){
             insertLoader();
