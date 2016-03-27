@@ -350,7 +350,7 @@
             }
 
             var html = xmlhttpResponse.responseText;
-            options.url = xmlhttpResponse.responseURL.replace(/(?:\?|&)\_pjax/, '');
+            options.url = xmlhttpResponse.responseURL.replace(/[?&]_pjax/, '');
 
             // Parse page & update DOM
             options = internal.updateContent(html, options);
