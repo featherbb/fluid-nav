@@ -381,6 +381,11 @@
                 if(window.ga) ga('send', 'pageview', {'page': options.url, 'title': options.title});
             }
 
+            // Force autofocus
+            if (document.querySelector('[autofocus]') !== null) {
+                document.querySelector('[autofocus]').focus();
+            }
+
             // Set new title
             if(!options.smartLoad) document.title = options.title;
             // Scroll page to top on new page load if URL doesn't have hash
